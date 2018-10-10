@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<dotnet_sandbox.mvc.Models.ListItemViewModel>
+@*the partial view gets its data from the containing page*@
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -19,7 +20,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Index)
@@ -30,12 +32,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Time)
             </td>
+            @*the buttons are not yet functionale*@
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
