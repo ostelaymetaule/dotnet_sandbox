@@ -44,6 +44,26 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<hr />
+<h2>
+    using ViewComponents:
+</h2>
+<div>
+    <h3>First ViewComponent</h3>
+    @*Render a collection via viewcomponent with separate data source *@
+    @*code behind is located in \ViewComponents\FirstViewComponent.cs  The "ViewComponent" Suffix is ignored when invoking the component *@
+    @*The view is located in \Shared\Components\First\Default.cshtml, the model is populated from the components code behind class, and if the view name is empty the "default" will be used *@
+    @await Component.InvokeAsync("First");
+</div>
+
+<div>
+    <h3>Second ViewComponent</h3>
+    @*Render a collection via viewcomponent with separate data source dependent on int parameter*@
+    @*code behind is located in \ViewComponents\SecondViewComponent.cs  The "ViewComponent" Suffix is ignored when invoking the component *@
+    @*The view is located in \Shared\Components\Second\SecondNotDefaultView.cshtml, the model is populated from the components code behind class *@
+    @await Component.InvokeAsync("Second", 8);
+
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
