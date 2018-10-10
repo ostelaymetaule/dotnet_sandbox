@@ -8,13 +8,34 @@ using System.Threading.Tasks;
 
 namespace dotnet_sandbox.mvc.Controllers
 {
+    /// <summary>
+    /// Main page controller
+    /// TODO: validate the modelbinding functions in both ways and the updatet values are correctly propagated back to this controller
+    /// </summary>
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            var myModel = new MainPageViewModel()
+            //creating a simple model and populating it with sample data:
+
+            MainPageViewModel myModel = CreateSampleModel();
+
+            return View(myModel);
+        }
+
+        /// <summary>
+        /// Dummy model creation. Can be replaced to quering from DB or similliar
+        /// </summary>
+        /// <returns>An Viewmodel object containing both information for the main page as also the data needed to populate the partial views.
+        /// BEWARE, the dualway modelbinding might not function in this way - this needs testing</returns>
+        private static MainPageViewModel CreateSampleModel()
+        {
+            return new MainPageViewModel()
             {
+                //Field shown on the main page
                 MainPageName = "my page model with a list",
+
+                //first collection rendered with the partial view
                 FirstPartialModel = new List<ListItemViewModel>()
                 {
                     new ListItemViewModel()
@@ -30,6 +51,7 @@ namespace dotnet_sandbox.mvc.Controllers
                         Time= DateTime.Now.AddHours(-2).AddDays(1)
                     }
                 },
+                //another collection rendered with the partial view on the same page
                 SecondPartialModel = new List<OtherItemViewModel>
                 {
                     new OtherItemViewModel
@@ -49,8 +71,6 @@ namespace dotnet_sandbox.mvc.Controllers
                     }
                 }
             };
-
-            return View(myModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
